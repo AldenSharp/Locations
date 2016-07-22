@@ -1,0 +1,83 @@
+<div class="container-fluid">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="jumbotron">
+			<h1>Admin: {{ctrl.name}}</h1>
+			<p>Base URL: {{ctrl.path}}</p>
+			<p>Absolute URL: {{ctrl.absPath}}</p>
+		</div>
+		<section>
+			<ul class="nav nav-pills">
+				<li ng-class="{ active: ctrl.isSelected(1) }">
+					<a href ng-click="ctrl.selectTab(1)">Home</a>
+				</li>
+				<li ng-class="{ active: ctrl.isSelected(2) }">
+					<a href ng-click="ctrl.selectTab(2)">Anonymous Hits</a>
+				</li>
+				<li ng-class="{ active: ctrl.isSelected(3) }">
+					<a href ng-click="ctrl.selectTab(3)">Conversion Rates</a>
+				</li>
+			</ul>
+			<br>
+			<div class="panel" ng-show="ctrl.isSelected(1)">
+				<p>Welcome, {{ctrl.name}}!</p>
+				<div>
+					<button ng-click="ctrl.logout()">Log out</button>
+				</div>
+			</div>
+			<div class="panel" ng-show="ctrl.isSelected(2)">
+				<table style="width:100%">
+					<tr>
+				    	<th>URL</th>
+				    	<th>Label</th>
+				    	<th># Hits<br>(past 7 days)</th>
+				    	<th># Hits<br>(past 30 days)</th>
+				    	<th># Hits<br>(past 365 days)</th>
+				    	<th># Hits<br>(total)</th>
+				  	</tr>
+				  	<tr ng-repeat="count in ctrl.counts">
+				    	<td>{{ctrl.getPath(count.num)}}</td>
+				    	<td>{{count.label}}</td> 
+				    	<td>{{count.hitsPastWeek}}</td>
+				    	<td>{{count.hitsPastMonth}}</td>
+				    	<td>{{count.hitsPastYear}}</td>
+				    	<td>{{count.hitsAllTime}}</td>
+				  	</tr>
+				</table><br>
+				<p>Create a new areal URL:</p>
+				<form>
+					<p>Area label: 
+					<input type="text" name="label" ng-model="label">
+					<button ng-click="ctrl.newUrl(label)">Create!</button>
+					</p>
+					<p>{{ctrl.response}}</p>
+				</form>
+			</div>
+			<div class="panel" ng-show="ctrl.isSelected(3)">
+				<table style="width:100%">
+					<tr>
+						<th>URL</th>
+						<th>Label</th>
+						<th># Anonymous Users</th>
+						<th># Registered Users</th>
+						<th>Conversion Rate</th>
+					</tr>
+					<tr ng-repeat="count in ctrl.counts">
+						<td>{{ctrl.getPath(count.num)}}</td>
+						<td>{{count.label}}</td>
+						<td>{{count.hitsAllTime}}</td>
+						<td>{{count.registeredUsers}}</td>
+						<td>{{count.conversionRate}}</td>
+					</tr>
+				</table><br>
+				<p>Create a new areal URL:</p>
+				<form>
+					<p>Area label: 
+					<input type="text" name="label" ng-model="label">
+					<button ng-click="ctrl.newUrl(label)">Create!</button>
+					</p>
+					<p>{{ctrl.response}}</p>
+				</form>
+			</div>
+		</section>
+	</div>
+</div>

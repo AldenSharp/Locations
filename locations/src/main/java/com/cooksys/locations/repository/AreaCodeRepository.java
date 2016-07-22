@@ -7,5 +7,6 @@ import com.cooksys.locations.entity.AreaCode;
 public interface AreaCodeRepository extends JpaRepository<AreaCode, Long> {
 	
 	AreaCode findByNum(int num);
+	AreaCode findByLabel(String label);
 
 }

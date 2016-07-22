@@ -7,8 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.cooksys.locations.model.AppArea;
+
 @Entity
-@Table(name = "AreaCode", uniqueConstraints = @UniqueConstraint(columnNames = { "NUM" }))
+@Table(name = "AreaCode", uniqueConstraints = @UniqueConstraint(columnNames = { "NUM", "LABEL" }))
 public class AreaCode {
 	
 	@Id
@@ -17,6 +19,9 @@ public class AreaCode {
 	
 	@Column(name = "NUM")
 	private int num;
+	
+	@Column(name = "LABEL")
+	private String label;
 	
 	@Column(name = "ANONYMOUSCOUNT")
 	private int anonymousCount;
@@ -36,12 +41,20 @@ public class AreaCode {
 		
 	}
 	
+	public AreaCode(AppArea appArea, Long num) {
+		this.num = num.intValue() + 1;
+		this.label = appArea.getLabel();
+		this.anonymousCount = 0;
+		this.registeredUserCount = 0;
+		this.loggedInUserCount = 0;
+	};
+	
 	public AreaCode() {
 		// Default constructor.
 	}
 	
 	public int getTotalCount() {
-		return loggedInUserCount + anonymousCount;
+		return this.loggedInUserCount + this.anonymousCount;
 	}
 	
 	public double getConversionRate() {
@@ -64,6 +77,14 @@ public class AreaCode {
 		this.num = num;
 	}
 
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	
 	public int getAnonymousCount() {
 		return anonymousCount;
 	}

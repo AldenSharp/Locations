@@ -1,0 +1,18 @@
+<div class="container-fluid">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="jumbotron">
+			<h1>Register</h1>
+		</div>
+		<form>
+			<p>Set a username:</p>
+			<input type="text" name="username" ng-model="username"><br><br>
+			<p>Set a password:</p>
+			<input type="password" name="password" ng-model="password"><br><br>
+			<p>Re-enter your password:</p>
+			<input type="password" name="checkPassword" ng-model="checkPassword"><br><br>
+			<button ng-click="ctrl.register(username, password, checkPassword)">Register!</button>
+		</form>
+		<br>
+		<p>{{ctrl.output}}<a ng-href="#/login">{{ctrl.link}}</a></p>
+	</div>
+</div>

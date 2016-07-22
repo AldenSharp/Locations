@@ -23,6 +23,13 @@ public class User {
 
 	@Column(name = "NUM")
 	private int num;
+	
+	@Column(name = "TYPE")
+	private String type;
+	
+	public User(String s) {
+		this.type = s;
+	}
 
 	public User() {
 		// Default constructor.
@@ -58,6 +65,14 @@ public class User {
 
 	public void setNum(int num) {
 		this.num = num;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

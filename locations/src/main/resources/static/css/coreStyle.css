@@ -1,0 +1,25 @@
+.jumbotron {
+	background-color: #000020;
+	color: white;
+}
+
+.jumbotron > p, .jumbotron > h2 {
+	color: #505050;
+}
+
+p, table {
+	color: #606060;
+}
+
+th {
+	color: #404040;
+}
+
+.nav-pills > li > a, .nav-pills > li > a:hover, .nav-pills > li > a:focus {
+	color: #606060;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+	color: #606060;
+	background-color: #d8d8d8;
+}

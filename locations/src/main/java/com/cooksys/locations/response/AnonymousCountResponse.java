@@ -8,8 +8,13 @@ public class AnonymousCountResponse {
 	private int count;
 
 	public AnonymousCountResponse(AreaCode areaCode) {
-		num = areaCode.getNum();
-		count = areaCode.getAnonymousCount();
+		this.num = areaCode.getNum();
+		this.count = areaCode.getAnonymousCount();
+	}
+	
+	public AnonymousCountResponse(int num, int count) {
+		this.num = num;
+		this.count = count;
 	}
 
 	public int getNum() {

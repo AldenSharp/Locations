@@ -9,17 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cooksys.locations.model.AppArea;
 import com.cooksys.locations.model.AppLocation;
 import com.cooksys.locations.repository.AreaCodeRepository;
 import com.cooksys.locations.repository.LocationRepository;
 import com.cooksys.locations.response.AnonymousCountResponse;
 import com.cooksys.locations.response.AreaCodeResponse;
 import com.cooksys.locations.response.ConversionRateResponse;
+import com.cooksys.locations.response.MethodResponse;
+import com.cooksys.locations.response.NumResponse;
 import com.cooksys.locations.response.UserResponse;
 import com.cooksys.locations.service.LocationService;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("location")
 public class LocationController {
 
 	@Autowired
@@ -30,16 +33,28 @@ public class LocationController {
 	
 	@Autowired
 	LocationRepository locationRepository;
+	
+	// Get all num values (including hit counts in past 7 days, past 30 days, past 365 days, and all time).
+	@RequestMapping(value = "nums", method = RequestMethod.GET)
+	public List<NumResponse> getNums() {
+		return locationService.getNums();
+	}
+	
+	// New area.
+	@RequestMapping(value = "new", method = RequestMethod.POST)
+	public MethodResponse newArea(@RequestBody AppArea area) {
+		return locationService.newArea(area);
+	}
 
 	// New location.
-	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String newLocation(@RequestBody AppLocation location) {
+	@RequestMapping(value = "newlocation", method = RequestMethod.POST)
+	public MethodResponse newLocation(@RequestBody AppLocation location) {
 		return locationService.newLocation(location);
 	}
 	
 	// Increment anonymous count at the given area code.
 	@RequestMapping(value = "increment/{num}", method = RequestMethod.POST)
-	public String incrementAnonymous(@PathVariable int num) {
+	public MethodResponse incrementAnonymous(@PathVariable int num) {
 		return locationService.incrementAnonymous(num);
 	}
 
@@ -68,9 +83,9 @@ public class LocationController {
 	}
 	
 	// Get locations by area code.
-	@RequestMapping(value = "{num}", method = RequestMethod.GET)
+	@RequestMapping(value = "byareacode/{num}", method = RequestMethod.GET)
 	public AreaCodeResponse getLocationsByAreaCode(@PathVariable int num) {
 		return new AreaCodeResponse(num, locationRepository.findByNum(num));
 	}
-
+	
 }
